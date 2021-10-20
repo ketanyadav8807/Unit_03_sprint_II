@@ -28,6 +28,7 @@
             font-size: 20px;
             margin-left: 100px;
             border-radius: 5px;
+            background-color: rgb(17, 116, 17);
         }
     </style>
 </head>
@@ -45,7 +46,9 @@
 
     <script>
       
-      var userEmail = document.getElementById("email")
+      var userEmail = document.getElementById("email");
+      var firstName = document.getElementById("first-name");
+      var lastName = document.getElementById("last-name");
       var loginBtn = document.getElementById("login-btn");
 
       loginBtn.addEventListener("click" , handleLogin)
@@ -57,7 +60,7 @@
         .then(response => response.json())
         .then (response =>{
             for(index in response.data){
-                if(userEmail.value == response.data[index].email){
+                if(userEmail.value == response.data[index].email && firstName.value == response.data[index].first_name && lastName.value == response.data[index].last_name){
                     find++
                     break;
                 }
@@ -66,9 +69,11 @@
                 window.location.assign("http://127.0.0.1:5500/Unit_03/codingEval-II/Unit_03_sprint_II/Home.html")
             }
             else{
-                alert("Wrong User_Email")
+                alert("Wrong Credentials")
             }
-            
+            userEmail.value = ""
+            firstName.value = ""
+            lastName.value = ""
         })
         .catch (error => console.log(error))
       }
