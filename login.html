@@ -26,5 +26,29 @@
         <button id="login-btn">Login</button>
 
     </form>
+
+    <script>
+      
+      var userEmail = document.getElementById("email").value
+      var loginBtn = document.getElementById("login-btn");
+
+      loginBtn.addEventListener("click" , handleLogin)
+
+      function handleLogin(e){
+        e.preventDefault();
+        console.log(userEmail)
+        fetch("https://reqres.in/api/users?page=1")
+        .then(response => response.json())
+        .then (response =>{
+            for(index in response.data){
+                console.log(response.data[index].email)
+            }
+            
+        })
+        .catch (error => console.log(error))
+      }
+
+      
+    </script>
 </body>
 </html>
