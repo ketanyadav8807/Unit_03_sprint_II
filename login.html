@@ -6,22 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <style>
+        body{
+            font-family: sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            background-color: rgb(213, 224, 219);
+        }
         form{
+            width: 20%;
+            margin: 200px auto;
+            border: 1px solid black;
+            padding: 100px;
+            background-color: white;
+        }
+        #email, #login-btn , #last-name{
             margin-top: 20px;
         }
-        #email, #login-btn{
-            margin-top: 0.5rem;
-        }
         #login-btn{
-            margin-left: 45px;
+            font-family: sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            margin-left: 100px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <form>
-        Name:<input type="text" id="name" placeholder="Full-Name">
+        First-Name:<input type="text" id="first-name" placeholder="First-Name">
         </br>
-        Email:<input type="email" id="email" placeholder="Email-Id">
+        Last-Name:<input type="text" id="last-name" placeholder="Last-Name">
+        </br>
+        Email-Id:<input type="email" id="email" placeholder="Email-Id">
         </br>
         <button id="login-btn">Login</button>
 
@@ -29,19 +45,28 @@
 
     <script>
       
-      var userEmail = document.getElementById("email").value
+      var userEmail = document.getElementById("email")
       var loginBtn = document.getElementById("login-btn");
 
       loginBtn.addEventListener("click" , handleLogin)
 
       function handleLogin(e){
+          var find = 0;
         e.preventDefault();
-        console.log(userEmail)
         fetch("https://reqres.in/api/users?page=1")
         .then(response => response.json())
         .then (response =>{
             for(index in response.data){
-                console.log(response.data[index].email)
+                if(userEmail.value == response.data[index].email){
+                    find++
+                    break;
+                }
+            }
+            if(find > 0){
+                window.location.assign("http://127.0.0.1:5500/Unit_03/codingEval-II/Unit_03_sprint_II/Home.html")
+            }
+            else{
+                alert("Wrong User_Email")
             }
             
         })
